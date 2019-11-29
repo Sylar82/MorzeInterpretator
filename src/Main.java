@@ -1,0 +1,9 @@
+package src;
+
+class Main
+{
+    {
+
+
+    }
+}
