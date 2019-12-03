@@ -1,44 +1,63 @@
 package src;
 
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 class Interpretator {
 
-    private Map<Character, String> hashMap = new HashMap<>();
-    private String InputText;
+    private Map<Character, String> hashMapToMorze = new HashMap<>();
 
 
-     void initMap() {
-        String alphabet = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя.,:;";
+    void initMap() {
+        String alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,:; ";
         String[] alphabetMorze = new String[]{"·−", "−···", "·−−", "−−·", "−··", "·", "·", "···−", "−−··", "··", "·−−−", "−·−",
                 "·−··", "−−", "−·", "−−−", "·−−·", "·−·", "···", "−", "··−", "··−·", "····", "−·−·", "−−−·", "−−−−", "−−·−",
-                "−−·−−", "−·−−", "−··−", "··−··", "··−−", "·−·−", "······", "·−·−·−", "−−−···", "−·−·−·"};
+                "−−·−−", "−·−−", "−··−", "··−··", "··−−", "·−·−", "······", "·−·−·−", "−−−···", "−·−·−·", ""};
 
         for (int i = 0; i < alphabet.length(); i++) {
-            hashMap.put(alphabet.charAt(i), alphabetMorze[i]);
-
-
+            hashMapToMorze.put(alphabet.charAt(i), alphabetMorze[i]);
         }
 
     }
 
-       public void userInterface() {
-            System.out.println("Введите текст: ");
-            InputText = System.in.toString();
-            if (InputText != null) {
-                toMorze(InputText);
+    void userInterface() {
+        System.out.println("Введите текст: ");
+        Scanner in = new Scanner(System.in);
+        String inputText = in.nextLine();
+        System.out.println("Вы ввели: " + inputText);
+        if (inputText != null) {
+           System.out.println("Результат: " + toMorze(inputText));
+
+        }
+
+
+    }
+
+
+
+
+    private StringBuilder toMorze(@NotNull String inputText) {
+        StringBuilder outputString = new StringBuilder();
+        for (int i = 0; i < inputText.length(); i++) {
+            outputString.append(hashMapToMorze.get(inputText.charAt(i)));
+            outputString.append(" ");
+          /*  if(inputText.charAt(i) == ' ' && inputText.charAt(i) < inputText.length() ){
+                OutputString.append(" ");
+
             }
+            */
+
         }
 
-
-
-
-
-    private void toMorze(String InputText) {
-
-
+            return outputString;
     }
+
 
 
 }
+
+//

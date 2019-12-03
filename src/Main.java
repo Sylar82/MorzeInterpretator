@@ -6,7 +6,10 @@ class Main {
         {
 
             Interpretator interpretator = new Interpretator();
-            interpretator.userInterface();
             interpretator.initMap();
+            interpretator.userInterface();
+
+
+
         }
 }
