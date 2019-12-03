@@ -3,7 +3,6 @@ package src;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -34,17 +33,27 @@ class Interpretator {
         System.out.println("Вы ввели: " + inputText);
 
         if (inputText != null) {
+            boolean isText = true;
             for (int i = 0; i < inputText.length(); i++) {
-                if (inputText.charAt(i) != '·'
-                        || inputText.charAt(i) != '−'
-                        || inputText.charAt(i) != ' ')
-                {
-                    System.out.println("Результат: " + toMorze(inputText));
+                if (inputText.charAt(i) == '·'
+                        || inputText.charAt(i) == '−'
+                        && inputText.charAt(i) == ' ') {
+                    isText = false;
+                    break;
                 }
-
             }
 
-            System.out.println("Результат: " + toCyrillic(inputText));
+                    if (isText) {
+                        System.out.println("Результат: " + toMorze(inputText));
+                    }
+                    else {
+                        System.out.println("Результат: " + toCyrillic(inputText));
+                    }
+
+
+
+
+
 
         }
 
