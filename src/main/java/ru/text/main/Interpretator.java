@@ -1,4 +1,4 @@
-package src;
+package ru.text.main;
 
 
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,7 @@ class Interpretator {
 
 
     void initMap() {
-        String alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,:; ";
+        String alphabet = "абвгдёежзийклмнопрстуфхцчшщъыьэюя.,:; ";
         String[] alphabetMorze = new String[]{"·−", "−···", "·−−", "−−·", "−··", "·", "·", "···−", "−−··", "··", "·−−−", "−·−",
                 "·−··", "−−", "−·", "−−−", "·−−·", "·−·", "···", "−", "··−", "··−·", "····", "−·−·", "−−−·", "−−−−", "−−·−",
                 "−−·−−", "−·−−", "−··−", "··−··", "··−−", "·−·−", "······", "·−·−·−", "−−−···", "−·−·−·", ""};
@@ -49,18 +49,13 @@ class Interpretator {
                     else {
                         System.out.println("Результат: " + toCyrillic(inputText));
                     }
-
-
-
-
-
-
         }
 
 
     }
 
-    private StringBuilder toMorze(@NotNull String inputText) {
+    @NotNull
+    private StringBuilder toMorze(String inputText) {
         StringBuilder outputString = new StringBuilder();
         for (int i = 0; i < inputText.length(); i++) {
             outputString.append(hashMapToMorze.get(inputText.charAt(i)));
@@ -69,7 +64,8 @@ class Interpretator {
         return outputString;
     }
 
-    private StringBuilder toCyrillic(@NotNull String inputText) {
+    @NotNull
+    private StringBuilder toCyrillic(String inputText) {
        String[] encodeWords;
         StringBuilder outputString = new StringBuilder();
         encodeWords = inputText.split(" ");

@@ -1,4 +1,4 @@
-package src;
+package ru.text.main;
 
 class Main {
 
