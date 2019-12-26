@@ -1,12 +1,12 @@
 package ru.text.main;
 
+
 class Main {
 
-        public static void main(String[] args)
-        {
+        public static void main(String[] args) {
 
             Interpretator interpretator = new Interpretator();
-            interpretator.initMap();
+            interpretator.readFromFile();
             interpretator.userInterface();
 
 
