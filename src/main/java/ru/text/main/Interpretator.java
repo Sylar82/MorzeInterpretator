@@ -1,11 +1,7 @@
 package ru.text.main;
 
-
 import org.jetbrains.annotations.NotNull;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,49 +11,33 @@ class Interpretator {
     private Map<String, String> hashMapToMorze = new HashMap<>();
     private Map<String, String> hashMapToCyrillic = new HashMap<>();
 
-    void readFromFile() {
+    void readFromFile() throws IOException {
 
         String filePath = "src/main/resources/";
         String fileName = "Dictionary.csv";
+        File file = new File(filePath + fileName);
 
-
-        try(Reader rd = new FileReader(filePath + fileName);
-                BufferedReader reader = new BufferedReader(rd)) {
-            String s;
-            String a, b;
-            while ((s = reader.readLine()) != null) {
-                a = Character.toString(s.charAt(0));
-                b = s.substring(2);
-                hashMapToMorze.put(a, b);
-                hashMapToCyrillic.put(b, a);
-            }
-        }
-
-        catch (Exception e) {
-            e.printStackTrace(System.out);
+        try(BufferedReader rd = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+             String s;
+             String a, b;
+             String UTF8_BOM = "\uFEFF";
+            while((s =rd.readLine())!=null)
+             {
+                 int i = s.contains(UTF8_BOM) ? 1 : 0;
+                 a = Character.toString(s.charAt(i));
+                 b = s.substring(i + 2, (s.lastIndexOf(";")));
+                 hashMapToMorze.put(a, b);
+                 hashMapToCyrillic.put(b, a);
+             }
         }
 
     }
-
-
-
 
     void userInterface() {
         System.out.println("Введите текст: ");
         Scanner in = new Scanner(System.in);
         String inputText = in.nextLine();
         System.out.println("Вы ввели: " + inputText);
-//        if (inputText != null) {
-//            boolean isText = true;
-//            for (int i = 0; i < inputText.length(); i++) {
-//                if (inputText.charAt(i) == '·'
-//                        || inputText.charAt(i) == '−'
-//                        && inputText.charAt(i) == ' ') {
-//                    isText = false;
-//                    break;
-//                }
-//            }
-
             if (!inputText.matches("[А-Я а-я0-9]+")) {
                 System.out.println("Результат: " + toCyrillic(inputText.replace(".", "·")));
             } else {
@@ -88,7 +68,6 @@ class Interpretator {
         }
         return outputString;
     }
-
 }
 
 
