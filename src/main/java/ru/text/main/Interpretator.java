@@ -40,7 +40,7 @@ class Interpretator {
         Scanner in = new Scanner(System.in);
         String inputText = in.nextLine().replace('·', '.');
         System.out.println("Вы ввели: " + inputText);
-        String pattern = "\\w+";
+        String pattern = "[а-яА-Яa-z-A-Z0-9]+";
         Pattern ptrn = Pattern.compile(pattern);
         Matcher matcher = ptrn.matcher(inputText);
         if (matcher.find())
