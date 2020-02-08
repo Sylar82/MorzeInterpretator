@@ -5,6 +5,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Interpretator {
 
@@ -17,33 +19,38 @@ class Interpretator {
         String fileName = "Dictionary.csv";
         File file = new File(filePath + fileName);
 
-        try(BufferedReader rd = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-             String s;
-             String a, b;
-             String UTF8_BOM = "\uFEFF";
-            while((s =rd.readLine())!=null)
-             {
-                 int i = s.contains(UTF8_BOM) ? 1 : 0;
-                 a = Character.toString(s.charAt(i));
-                 b = s.substring(i + 2, (s.lastIndexOf(";")));
-                 hashMapToMorze.put(a, b);
-                 hashMapToCyrillic.put(b, a);
-             }
+        try (BufferedReader rd = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+
+            String s;
+            String a, b;
+            String UTF8_BOM = "\uFEFF";
+            while ((s = rd.readLine()) != null) {
+                int i = s.contains(UTF8_BOM) ? 1 : 0;
+                a = Character.toString(s.charAt(i));
+                b = s.substring(i + 2, (s.lastIndexOf(";")));
+                hashMapToMorze.put(a, b);
+                hashMapToCyrillic.put(b, a);
+            }
         }
 
     }
 
-    void userInterface() {
+    void runUserInterface() {
         System.out.println("Введите текст: ");
         Scanner in = new Scanner(System.in);
-        String inputText = in.nextLine();
+        String inputText = in.nextLine().replace('·', '.');
         System.out.println("Вы ввели: " + inputText);
-            if (!inputText.matches("[А-Я а-я0-9]+")) {
-                System.out.println("Результат: " + toCyrillic(inputText.replace(".", "·")));
-            } else {
-                System.out.println("Результат: " + toMorze(inputText));
-            }
+        String pattern = "\\w+";
+        Pattern ptrn = Pattern.compile(pattern);
+        Matcher matcher = ptrn.matcher(inputText);
+        if (matcher.find())
+            System.out.println("Результат: " + toMorze(inputText));
+        else {
+            System.out.println("Результат: " + toCyrillic(inputText));
         }
+
+
+    }
 
 
     @NotNull

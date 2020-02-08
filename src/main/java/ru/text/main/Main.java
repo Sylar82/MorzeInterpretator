@@ -8,6 +8,6 @@ class Main {
         public static void main(String[] args) throws IOException {
             Interpretator interpretator = new Interpretator();
             interpretator.readFromFile();
-            interpretator.userInterface();
+            interpretator.runUserInterface();
         }
 }
