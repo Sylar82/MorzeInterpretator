@@ -1,12 +1,12 @@
 package ru.text.main;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 class Interpretator {
 
@@ -40,13 +40,35 @@ class Interpretator {
         Scanner in = new Scanner(System.in);
         String inputText = in.nextLine().replace('·', '.');
         System.out.println("Вы ввели: " + inputText);
-        String pattern = "[а-яА-Яa-z-A-Z0-9]+";
-        Pattern ptrn = Pattern.compile(pattern);
-        Matcher matcher = ptrn.matcher(inputText);
-        if (matcher.find())
-            System.out.println("Результат: " + toMorze(inputText));
-        else {
+        int counter = 0;
+        for (int i = 0; i < inputText.length(); i++) {
+//
+//            if (inputText.charAt(i) == '.')
+//                counter += 1;
+//            else if (inputText.charAt(i) == ' ')
+//                counter += 1;
+//            else if (inputText.charAt(i) == '−')
+//                counter += 1;
+//
+//        }
+
+            switch (inputText.charAt(i)) {
+
+                case '.':
+                case 32:
+                case 45:
+                    counter++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (inputText.length() <= counter) {
             System.out.println("Результат: " + toCyrillic(inputText));
+        } else {
+
+            System.out.println("Результат: " + toMorze(inputText));
         }
 
 
